@@ -1,0 +1,20 @@
+[package]
+name = "rust-ukernel-os"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Add as needed: spin, tock-registers, aarch64-cpu, linked_list_allocator
+
+# Lesson from the first bring-up: debug-assertions wrap read_volatile /
+# write_volatile in precondition checks that misbehave in a freestanding
+# environment. Keep them off even in dev builds.
+[profile.dev]
+panic = "abort"
+debug-assertions = false
+overflow-checks = false
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1
